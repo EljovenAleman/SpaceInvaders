@@ -9,12 +9,9 @@ namespace SpaceInvaders
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(args[1]);
-            Console.WriteLine(args[0]);
-
             Console.ReadKey();
-           /* Game game = new Game();
-            game.Start();*/
+            Game game = new Game();
+            game.Start();
         }
     }
 }
