@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace SpaceInvaders
 {
@@ -17,7 +19,32 @@ namespace SpaceInvaders
             enemyList.AddRange(enemiesType1);
             enemyList.AddRange(enemiesType2);
 
+            World.AddEntity(playership);
+            for(int f=0; f<enemyList.Count;f++)
+            {
+                World.AddEntity(enemyList[f]);
+            }
 
+            EntityPositioner.PositionatePlayerShip(playership);
+            EntityPositioner.PositionateEnemies(enemyList);
+            int x = 0;
+            while(x!=50)
+            {
+                Console.Clear();
+                for (int f = 0; f < World.entities.Count; f++)
+                {
+                    
+                    World.entities[f].Update();
+                    
+                }
+                
+                Graphics.DrawEntities(World.entities);
+                x++;
+                Thread.Sleep(300);
+                
+            }
+            
+            
         }
 
         public Enemy[] CreateEnemies(int enemyQuantity, char enemyVisualRepresentation)
@@ -33,5 +60,7 @@ namespace SpaceInvaders
 
             return enemies;
         }
+
+        
     }
 }

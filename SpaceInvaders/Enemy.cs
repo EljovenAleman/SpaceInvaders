@@ -13,31 +13,33 @@ namespace SpaceInvaders
         }
 
         //Movimiento de los Enemies
-        public void Update(List<Enemy> enemies)
+        public override void Update()
         {
+
+            //Move(position.x + 1, position.y);
             
 
             if (movedRight == 16)
             {
-                GoDown(enemies);
+                Move(position.x, position.y + 1);
                 movedLeft = 0;
                 movedRight++;
             }
             else if (movedLeft == 16)
             {
-                GoDown(enemies);
+                Move(position.x, position.y + 1);
                 movedRight = 0;
                 movedLeft++;
             }
             else if (movedRight < 16)
             {
-                GoRight(enemies);
+                Move(position.x + 1, position.y);
                 movedRight++;
 
             }
             else if(movedLeft < 16)
             {
-                GoLeft(enemies);
+                Move(position.x - 1, position.y);
                 movedLeft++;
             }
            

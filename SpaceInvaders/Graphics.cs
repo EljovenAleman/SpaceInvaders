@@ -9,7 +9,6 @@ namespace SpaceInvaders
 
         public static void DrawEntities(List<Entity> entities)
         {
-            ClearScreen();
             foreach(Entity drawableEntity in entities)
             {
                 DrawEntity(drawableEntity);
@@ -22,7 +21,7 @@ namespace SpaceInvaders
             Console.Write(entity.visualRepresentation);
         }
 
-        private static void ClearScreen()
+        public static void ClearScreen()
         {
             for(int f=0; f<width;f++)
             {

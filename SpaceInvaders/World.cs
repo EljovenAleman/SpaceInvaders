@@ -3,7 +3,7 @@ namespace SpaceInvaders
 {
     static class World
     {
-        static List<Entity> entities = new List<Entity>();
+        public static List<Entity> entities = new List<Entity>();
 
         
 
@@ -11,6 +11,7 @@ namespace SpaceInvaders
         {
             entities.Add(entity);
         }
+
     }
 
 
