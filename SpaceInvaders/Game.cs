@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace SpaceInvaders
 {
     class Game
     {
+        public ConsoleKey pressedKey = ConsoleKey.Backspace;
         public void Start()
         {
+            Console.CursorVisible = false;
+
             PlayerShip playership = new PlayerShip();
             //World.AddEntity(playership);
             Enemy[] enemiesType0 = CreateEnemies(24, '0');
@@ -28,9 +32,18 @@ namespace SpaceInvaders
             EntityPositioner.PositionatePlayerShip(playership);
             EntityPositioner.PositionateEnemies(enemyList);
             int x = 0;
-            while(x!=50)
+            while(x!=100)
             {
-                Console.Clear();
+                
+                Graphics.ClearScreen();
+               
+                Graphics.DrawEntities(World.entities);
+
+                if (Input.UserPressedGameKey())
+                {
+                    playership.ProcessInputAction(Input.GetInputAction()); 
+                }
+                
                 for (int f = 0; f < World.entities.Count; f++)
                 {
                     
@@ -38,9 +51,9 @@ namespace SpaceInvaders
                     
                 }
                 
-                Graphics.DrawEntities(World.entities);
+
                 x++;
-                Thread.Sleep(300);
+                Thread.Sleep(100);
                 
             }
             
@@ -59,6 +72,13 @@ namespace SpaceInvaders
             }
 
             return enemies;
+        }
+
+        //Quiero que devuelva un ConsoleKey (Esto obviamente no va a funcionar porque va a hacer que pare cada frame esperar por una tecla)
+        //Cómo convierto a un ConsoleKeyInfo a un ConsoleKey?
+        public ConsoleKey GetInput()
+        {
+            return Console.ReadKey().Key;
         }
 
         

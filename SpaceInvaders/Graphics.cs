@@ -5,7 +5,10 @@ namespace SpaceInvaders
 {
     static class Graphics
     {
+        
+
         private static int width = 40, height = 40;
+        private static string clearString = CreateClearString();
 
         public static void DrawEntities(List<Entity> entities)
         {
@@ -23,14 +26,34 @@ namespace SpaceInvaders
 
         public static void ClearScreen()
         {
-            for(int f=0; f<width;f++)
+           
+            Console.Clear();
+            /*for (int f = 0; f < height; f++)
             {
-                for(int c=0; c<height;c++)
+                for (int c = 0; c < width; c++)
                 {
-                    Console.SetCursorPosition(f, c);
+                    Console.SetCursorPosition(c, f);
                     Console.Write(' ');
                 }
+                
+            }*/
+        }
+
+        private static string CreateClearString()
+        {
+            string clearString = "";
+
+            for (int f = 0; f < height; f++)
+            {
+                for (int c = 0; c < width; c++)
+                {
+
+                    clearString += ' ';
+                }
+                clearString += Environment.NewLine;
             }
+
+            return clearString;
         }
     }
 }
