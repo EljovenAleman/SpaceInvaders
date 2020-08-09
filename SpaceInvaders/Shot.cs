@@ -1,36 +1,76 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SpaceInvaders
 {
     class Shot : Entity
     {
         int directionY;
-        public Shot(int x, int y, int directionY) : base('I')
+        public Shot(int x, int y, int directionY) : base('l')
         {
             Move(x, y+directionY);
             this.directionY = directionY;
+            World.AddEntity(this);
         }
 
 
-        /*public bool Colission(char[,] world, int x, int y)
+        public bool CheckColission(List<Entity> entities)
         {
             //quiero que chequee si esa posición en world está vacía
-            if(world[x,y-1]==null)
+            foreach(Entity entity in entities)
             {
-                return false;
+                if(entity.position.x == this.position.x && entity.position.y == this.position.y)
+                {
+                    if(entity!=this && entity.visualRepresentation!= ' ')
+                    {
+                        return true;
+                    }
+                    return false;
+                }
             }
 
-            return true;
+            return false;
         }
 
-        public void Explode(char[,] world, int x, int y)
-        {
-            world[x, y - 1] = 'X';
-        }*/
+        public void Explode(List<Entity> entities)
+        {           
+            visualRepresentation = 'X';
+            foreach(Entity entity in entities)
+            {
+                if (entity.position.x == this.position.x && entity.position.y == this.position.y)
+                {
+                    if (entity != this)
+                    {
+                        entity.visualRepresentation = ' ';
+                    }
+                    
+                }
+            }
+        }
 
+        //Cómo destruyo el objeto cuando llega a la position.y = 0?
         public override void Update()
         {
-            Move(position.x, position.y + directionY);
+            if(position.y==0)
+            {
+               //si la posicion es y=0 en vez de subir lo hace "desaparecer"
+               visualRepresentation = ' ';
+            }
+            else if(visualRepresentation == 'X')
+            {
+                visualRepresentation = ' ';
+                this.position.y = 0;
+            }
+            else if(CheckColission(World.entities))
+            {
+                Explode(World.entities);
+            }
+            else
+            {
+                Move(position.x, position.y + directionY);
+            }
+            
+            
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -32,12 +33,13 @@ namespace SpaceInvaders
             EntityPositioner.PositionatePlayerShip(playership);
             EntityPositioner.PositionateEnemies(enemyList);
             int x = 0;
-            while(x!=100)
+            while(CheckVictory(World.entities))
             {
                 
                 Graphics.ClearScreen();
-               
-                Graphics.DrawEntities(World.entities);
+                                                
+                Graphics.DrawEntities(World.entities);                
+                
 
                 if (Input.UserPressedGameKey())
                 {
@@ -53,7 +55,7 @@ namespace SpaceInvaders
                 
 
                 x++;
-                Thread.Sleep(100);
+                Thread.Sleep(150);
                 
             }
             
@@ -79,6 +81,19 @@ namespace SpaceInvaders
         public ConsoleKey GetInput()
         {
             return Console.ReadKey().Key;
+        }
+
+        public bool CheckVictory(List<Entity> entities)
+        {
+            foreach(Entity entity in entities)
+            {
+                if(entity.position.y == 21)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         

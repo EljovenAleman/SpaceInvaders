@@ -22,7 +22,7 @@ namespace SpaceInvaders
         }
 
         //Quería hacerlo con Switch
-        //Diferencia entre ConsoleKeyInfo y ConsoleKey?
+        
         public void ProcessInputAction(InputAction pressedKey)
         {
             if(pressedKey==InputAction.MoveRight)
