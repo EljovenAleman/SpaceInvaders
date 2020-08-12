@@ -9,6 +9,7 @@ namespace SpaceInvaders
     class Game
     {
         public ConsoleKey pressedKey = ConsoleKey.Backspace;
+        private bool gameWon;
         public void Start()
         {
             Console.CursorVisible = false;
@@ -32,31 +33,40 @@ namespace SpaceInvaders
 
             EntityPositioner.PositionatePlayerShip(playership);
             EntityPositioner.PositionateEnemies(enemyList);
-            int x = 0;
-            while(CheckVictory(World.entities))
+            
+            while(CheckVictory(enemyList))
             {
                 
                 Graphics.ClearScreen();
                                                 
-                Graphics.DrawEntities(World.entities);                
-                
-
+                Graphics.DrawEntities(World.entities);
+                                                          
                 if (Input.UserPressedGameKey())
                 {
-                    playership.ProcessInputAction(Input.GetInputAction()); 
+                    playership.ProcessInputAction(Input.GetInputAction());
                 }
                 
                 for (int f = 0; f < World.entities.Count; f++)
-                {
-                    
-                    World.entities[f].Update();
-                    
+                {                    
+                    World.entities[f].Update();                    
                 }
+                                             
+                Thread.Sleep(100);
                 
+            }
 
-                x++;
-                Thread.Sleep(150);
-                
+            if(gameWon)
+            {
+
+                Graphics.ClearScreen();
+                Console.SetCursorPosition(20, 10);
+                Console.WriteLine("You win!");
+            }
+            else
+            {
+                Graphics.ClearScreen();
+                Console.SetCursorPosition(20, 10);
+                Console.WriteLine("You lose");
             }
             
             
@@ -83,13 +93,28 @@ namespace SpaceInvaders
             return Console.ReadKey().Key;
         }
 
-        public bool CheckVictory(List<Entity> entities)
+        public bool CheckVictory(List<Enemy> enemies)
         {
-            foreach(Entity entity in entities)
+            foreach(Enemy enemy in enemies)
             {
-                if(entity.position.y == 21)
+                if(enemy.position.y == 21 && enemy.visualRepresentation != ' ')
                 {
+                    gameWon = false;
                     return false;
+                }
+            }
+
+            int deadEnemyCounter = 0;
+            foreach (Enemy enemy in enemies)
+            {
+                if (enemy.visualRepresentation == ' ')
+                {
+                    deadEnemyCounter++;
+                    if(deadEnemyCounter == enemies.Count)
+                    {
+                        gameWon = true;
+                        return false;
+                    }
                 }
             }
 

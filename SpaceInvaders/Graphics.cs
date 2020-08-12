@@ -18,7 +18,8 @@ namespace SpaceInvaders
             }
         }
 
-        private static void DrawEntity(Entity entity)
+
+        public static void DrawEntity(Entity entity)
         {
             Console.SetCursorPosition(entity.position.x, entity.position.y);
             Console.Write(entity.visualRepresentation);
