@@ -15,7 +15,7 @@ namespace SpaceInvaders
             Console.CursorVisible = false;
 
             PlayerShip playership = new PlayerShip();
-            //World.AddEntity(playership);
+            
             Enemy[] enemiesType0 = CreateEnemies(24, '0');
             Enemy[] enemiesType1 = CreateEnemies(24, '1');
             Enemy[] enemiesType2 = CreateEnemies(12, '2');
@@ -38,8 +38,16 @@ namespace SpaceInvaders
             {
                 
                 Graphics.ClearScreen();
+
+                if(RNG.RollForSpecialEnemy()==1)
+                {
+                    SpecialEnemy specialEnemy = new SpecialEnemy('>');
+                    EntityPositioner.PositionateSpecialEnemy(specialEnemy);
+                    World.AddEntity(specialEnemy);
+                }
                                                 
                 Graphics.DrawEntities(World.entities);
+                ScoreBoard.ShowScore();
                                                           
                 if (Input.UserPressedGameKey())
                 {
@@ -50,8 +58,10 @@ namespace SpaceInvaders
                 {                    
                     World.entities[f].Update();                    
                 }
+
+                Console.SetCursorPosition(0, 0);
                                              
-                Thread.Sleep(30);
+                Thread.Sleep(50);
                 
             }
 
@@ -59,13 +69,13 @@ namespace SpaceInvaders
             {
 
                 Graphics.ClearScreen();
-                Console.SetCursorPosition(20, 10);
+                Console.SetCursorPosition(35, 10);
                 Console.WriteLine("You win!");
             }
             else
             {
                 Graphics.ClearScreen();
-                Console.SetCursorPosition(20, 10);
+                Console.SetCursorPosition(35, 10);
                 Console.WriteLine("You lose");
             }
             

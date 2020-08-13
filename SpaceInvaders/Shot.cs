@@ -41,6 +41,7 @@ namespace SpaceInvaders
                 {
                     if (entity != this)
                     {
+                        ScoreBoard.ScoreCalculator(entity.visualRepresentation);
                         entity.visualRepresentation = ' ';
                     }
                     

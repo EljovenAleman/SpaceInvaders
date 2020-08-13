@@ -6,7 +6,7 @@ namespace SpaceInvaders
     {
         public static void PositionatePlayerShip(PlayerShip playership)
         {
-            playership.Move(20, 20);
+            playership.Move(35, 20);
         }
 
         //Cambios en la posición de los enemigos, ahora son 5 filas de 12 enemigos, separando los tipos de enemigo por fila
@@ -15,12 +15,17 @@ namespace SpaceInvaders
             int positionOnTheList = 0;
             for(int y=1; y<11; y=y+2)
             {
-                for(int x=0; x<24; x=x+2)
+                for(int x=25; x<49; x=x+2)
                 {
                     enemies[positionOnTheList].Move(x, y);
                     positionOnTheList++;
                 }
             }
+        }
+
+        public static void PositionateSpecialEnemy(SpecialEnemy specialEnemy)
+        {
+            specialEnemy.Move(0, 1);
         }
     }
 }
