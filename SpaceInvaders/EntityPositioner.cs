@@ -13,7 +13,7 @@ namespace SpaceInvaders
         public static void PositionateEnemies(List<Enemy> enemies)
         {
             int positionOnTheList = 0;
-            for(int y=0; y<10; y=y+2)
+            for(int y=1; y<11; y=y+2)
             {
                 for(int x=0; x<24; x=x+2)
                 {

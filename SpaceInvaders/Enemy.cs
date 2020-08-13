@@ -6,6 +6,7 @@ namespace SpaceInvaders
     {
         int movedRight = 0;
         int movedLeft = 17;
+        int moveNow = 0;
 
         public Enemy(char visualRepresentation): base(visualRepresentation)
         {
@@ -15,33 +16,37 @@ namespace SpaceInvaders
         //Movimiento de los Enemies
         public override void Update()
         {
+            moveNow++;
 
-            //Move(position.x + 1, position.y);
+            if(moveNow==10)
+            {
+                if (movedRight == 16)
+                {
+                    Move(position.x, position.y + 1);
+                    movedLeft = 0;
+                    movedRight++;
+                }
+                else if (movedLeft == 16)
+                {
+                    Move(position.x, position.y + 1);
+                    movedRight = 0;
+                    movedLeft++;
+                }
+                else if (movedRight < 16)
+                {
+                    Move(position.x + 1, position.y);
+                    movedRight++;
+
+                }
+                else if (movedLeft < 16)
+                {
+                    Move(position.x - 1, position.y);
+                    movedLeft++;
+                }
+
+                moveNow = 0;
+            }
             
-
-            if (movedRight == 16)
-            {
-                Move(position.x, position.y + 1);
-                movedLeft = 0;
-                movedRight++;
-            }
-            else if (movedLeft == 16)
-            {
-                Move(position.x, position.y + 1);
-                movedRight = 0;
-                movedLeft++;
-            }
-            else if (movedRight < 16)
-            {
-                Move(position.x + 1, position.y);
-                movedRight++;
-
-            }
-            else if(movedLeft < 16)
-            {
-                Move(position.x - 1, position.y);
-                movedLeft++;
-            }
            
         }
 

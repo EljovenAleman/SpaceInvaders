@@ -51,7 +51,7 @@ namespace SpaceInvaders
                     World.entities[f].Update();                    
                 }
                                              
-                Thread.Sleep(100);
+                Thread.Sleep(30);
                 
             }
 
