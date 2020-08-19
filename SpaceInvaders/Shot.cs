@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.CodeDom;
+using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 
 namespace SpaceInvaders
@@ -6,6 +7,8 @@ namespace SpaceInvaders
     class Shot : Entity
     {
         int directionY;
+        int entityFinder = 0;
+
         public Shot(int x, int y, int directionY) : base('l')
         {
             Move(x, y+directionY);
@@ -42,10 +45,13 @@ namespace SpaceInvaders
                     if (entity != this)
                     {
                         ScoreBoard.ScoreCalculator(entity.visualRepresentation);
+                        //entities.RemoveAt(entityFinder);
                         entity.visualRepresentation = ' ';
+                        
                     }
                     
                 }
+                //entityFinder++;
             }
         }
 

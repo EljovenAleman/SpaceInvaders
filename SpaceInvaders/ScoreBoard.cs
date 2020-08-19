@@ -4,7 +4,7 @@ namespace SpaceInvaders
 {
     static class ScoreBoard
     {
-        static int totalScore = 0;
+        static public int totalScore = 0;
 
         static public void ScoreCalculator(char enemyKind)
         {

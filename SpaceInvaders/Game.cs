@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace SpaceInvaders
 {
@@ -37,7 +38,7 @@ namespace SpaceInvaders
             while(CheckVictory(enemyList))
             {
                 
-                Graphics.ClearScreen();
+                //Graphics.ClearScreen();
 
                 if(RNG.RollForSpecialEnemy()==1)
                 {
@@ -47,21 +48,24 @@ namespace SpaceInvaders
                 }
                                                 
                 Graphics.DrawEntities(World.entities);
+
                 ScoreBoard.ShowScore();
                                                           
                 if (Input.UserPressedGameKey())
                 {
                     playership.ProcessInputAction(Input.GetInputAction());
                 }
-                
+
+                //si DrawEntities lo pongo acá, se desarma todo, por qué?
+
                 for (int f = 0; f < World.entities.Count; f++)
                 {                    
                     World.entities[f].Update();                    
                 }
-
+                //si no pongo esto se duplica, por qué?
                 Console.SetCursorPosition(0, 0);
                                              
-                Thread.Sleep(50);
+                Thread.Sleep(10);
                 
             }
 
@@ -71,12 +75,18 @@ namespace SpaceInvaders
                 Graphics.ClearScreen();
                 Console.SetCursorPosition(35, 10);
                 Console.WriteLine("You win!");
+
+                Console.SetCursorPosition(32, 20);
+                Console.WriteLine("Final score: " + ScoreBoard.totalScore);
             }
             else
             {
                 Graphics.ClearScreen();
                 Console.SetCursorPosition(35, 10);
                 Console.WriteLine("You lose");
+
+                Console.SetCursorPosition(32, 20);
+                Console.WriteLine("Final score: " + ScoreBoard.totalScore);
             }
             
             
@@ -96,8 +106,7 @@ namespace SpaceInvaders
             return enemies;
         }
 
-        //Quiero que devuelva un ConsoleKey (Esto obviamente no va a funcionar porque va a hacer que pare cada frame esperar por una tecla)
-        //Cómo convierto a un ConsoleKeyInfo a un ConsoleKey?
+        
         public ConsoleKey GetInput()
         {
             return Console.ReadKey().Key;
@@ -107,7 +116,7 @@ namespace SpaceInvaders
         {
             foreach(Enemy enemy in enemies)
             {
-                if(enemy.position.y == 21 && enemy.visualRepresentation != ' ')
+                if(enemy.position.y == 20 && enemy.visualRepresentation != ' ')
                 {
                     gameWon = false;
                     return false;
